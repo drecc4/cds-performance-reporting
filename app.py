@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 from fpdf import FPDF
 import base64
+import random
+import plotly.graph_objects as go
+
 
 
 #----------------------------------------------------------------------------------------------------------------------------------
@@ -50,6 +53,7 @@ df_open_schools = df_school_hierarchy.loc[df_school_hierarchy['SchoolOpen'] == 1
 lookup_school_state = dict(zip(df_open_schools.SchoolID, df_open_schools.State))
 lookup_school_district = dict(zip(df_open_schools.SchoolID, df_open_schools.District))
 lookup_school_region = dict(zip(df_open_schools.SchoolID, df_open_schools.Region))
+
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
@@ -112,3 +116,31 @@ if select_export_pdf:
 st.title('CDS Performance Dashboard')
 st.write(f'##### {dynamic_report_title_one(select_role, select_geo)}')
 st.write('---')
+
+
+#Sample Plot
+
+sample_data_x = list(range(1,13))
+sample_data_y = [random.randint(1, 9) for x in sample_data_x]
+sample_data_y2 = [random.randint(1, 9) for x in sample_data_x]
+
+
+fig = go.Figure(data=[
+    go.Bar(name='Last Year', x=sample_data_x, y=sample_data_y, text=sample_data_y),
+    go.Bar(name='This Year', x=sample_data_x, y=sample_data_y2, text=sample_data_y2)
+])
+
+fig.update_xaxes(dtick=1)
+fig.update_layout(title='Example Plot #1', title_font_size=22,
+                  legend=dict(orientation="h", yanchor="bottom", y=-0.25, xanchor="right",x=1))
+
+st.plotly_chart(fig, use_container_width=True)
+
+#show data
+d = {'Month': sample_data_x, 'Last Year': sample_data_y, 'This Year': sample_data_y2}
+df_plot = pd.DataFrame(data=d).T
+
+with st.expander("View Data"):
+    st.dataframe(df_plot)
+
+
