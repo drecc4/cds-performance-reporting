@@ -50,9 +50,6 @@ df_open_schools = df_school_hierarchy.loc[df_school_hierarchy['SchoolOpen'] == 1
 lookup_school_state = dict(zip(df_open_schools.SchoolID, df_open_schools.State))
 lookup_school_district = dict(zip(df_open_schools.SchoolID, df_open_schools.District))
 lookup_school_region = dict(zip(df_open_schools.SchoolID, df_open_schools.Region))
-lookup_licensed_capacity = dict(zip(df_open_schools.SchoolID, df_open_schools.LicensedCapacity))
-lookup_school_district_manager = dict(zip(df_open_schools.SchoolID, df_open_schools.DistrictManager))
-
 
 #----------------------------------------------------------------------------------------------------------------------------------
 
